@@ -1,0 +1,20 @@
+{
+  "name": "pkout",
+  "version": "1.0.0",
+  "description": "very simple tool, see your config data in easy way",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "pkout": "./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^5.1.0",
+    "js-yaml": "^3.14.0",
+    "prompt": "^1.0.0"
+  }
+}
