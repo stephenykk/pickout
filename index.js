@@ -41,13 +41,19 @@ function main(conf) {
   program
     .version(packageJson.version)
     .command("data [keypath]", { isDefault: true })
-    .description("根据keypath获取数据 默认子命令, example: showme baidu.url")
+    .description("根据keypath获取数据 默认子命令, example: pkout mysite.url")
     .action((keypath) => {
-      var targetData = tools.get(data, keypath);
-      //   if(tools.isPlainObject(targetData)) {
-      //       targetData = JSON.stringify(targetData, null, 2);
-      //   }
-      console.log(targetData);
+      if (!keypath) {
+        console.log("main -> keypath", keypath)
+        program.outputHelp((str) => str);
+      } else {
+        if (keypath.toLowerCase() === "all") {
+          keypath = "";
+        }
+
+        var targetData = tools.get(data, keypath);
+        console.log(targetData);
+      }
     });
 
   program
@@ -72,14 +78,16 @@ function main(conf) {
       let { clear } = cmd.opts();
       if (clear) {
         tools.writeConf({});
+        console.log('config RESET OK')
       } else {
+        console.log(conf)
       }
     });
 
   program
     .command("edit [what]")
     .description(
-      "what is {yaml | js} 用vscode打开对应文件 example: showme edit yaml"
+      "what is {yaml | js} 用vscode打开对应文件 example: pkout edit yaml"
     )
     .action((type) => {
       type = type || "yaml";
@@ -93,8 +101,18 @@ function main(conf) {
 
   program.on("--help", () => {
     console.log("\n\n栗子:");
-    let examples = ['showme baidu.url', 'showme', 'showme conf', 'showme conf -c', 'showme edit']
-    console.log(examples.map(exam => '  ' + exam).join('\n'));
+    let examples = [
+      "pkout",
+      "pkout all",
+      "pkout mysite.user",
+      "pkout mysite.images.0.url",
+      "pkout mysite.images[0].url",
+      "pkout conf",
+      "pkout conf -c",
+      "pkout edit",
+      "pkout edit js",
+    ];
+    console.log(examples.map((exam) => "  " + exam).join("\n"));
   });
 
   program.parse(process.argv);

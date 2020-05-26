@@ -4,7 +4,7 @@
   "description": "very simple tool, see your config data in easy way",
   "main": "index.js",
   "scripts": {
-    "prepublish": "node reset.js"
+    "prepublishOnly": "node reset.js"
   },
   "bin": {
     "pkout": "./index.js"

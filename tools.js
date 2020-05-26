@@ -41,6 +41,8 @@ function isPlainObject(val) {
 function get(data, keyPath = '', defval = undefined) {
     if(!keyPath) return data
 
+    keyPath = keyPath.replace(/\[/g, '.').replace(/\]/g, '')
+
     let keys = keyPath.split('.')
     let ret = data
     while(keys.length) {
