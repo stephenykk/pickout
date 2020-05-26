@@ -44,7 +44,6 @@ function main(conf) {
     .description("根据keypath获取数据 默认子命令, example: pkout mysite.url")
     .action((keypath) => {
       if (!keypath) {
-        console.log("main -> keypath", keypath)
         program.outputHelp((str) => str);
       } else {
         if (keypath.toLowerCase() === "all") {
@@ -78,7 +77,6 @@ function main(conf) {
       let { clear } = cmd.opts();
       if (clear) {
         tools.writeConf({});
-        console.log('config RESET OK')
       } else {
         console.log(conf)
       }
@@ -100,7 +98,6 @@ function main(conf) {
     });
 
   program.on("--help", () => {
-    console.log("\n\n栗子:");
     let examples = [
       "pkout",
       "pkout all",
