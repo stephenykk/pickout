@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "node index.js config -c"
+    "prepublishOnly": "node index.js config -c  && npm version patch"
   },
   "bin": {
     "pkout": "./index.js"
