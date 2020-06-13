@@ -1,101 +1,101 @@
 #!/usr/bin/env node
 
-var prompt = require("prompt");
 var program = require("commander");
-var fs = require("fs");
-var path = require("path");
 
-var tools = require("./tools");
+var helper = require("./helper");
 var packageJson = require("./package");
-var config = require("./config");
 
-// config the yaml file path
-if (!config.yaml) {
-  var schema = [
-    {
-      name: "yaml",
-      description: "请输入yaml文件的路径",
-      message: ":( 没有对应的文件喔~, 请重新输入",
-      conform: function (val) {
-        var exists = fs.existsSync(path.resolve(val));
-        return exists;
-      },
-    },
-  ];
-
-  prompt.start();
-  prompt.get(schema, (err, conf) => {
-    if (err) return console.error(err);
-    tools.writeConf(conf);
-    main(conf);
-  });
-} else {
-  main(config);
-}
-
-// start
 function main(conf) {
-  var data = tools.getData(conf.yaml);
-
-  // handle options and arguments
   program
     .version(packageJson.version)
-    .command("data [keypath]", { isDefault: true })
-    .description("根据keypath获取数据 默认子命令, example: showme baidu.url")
-    .action((keypath) => {
-      var targetData = tools.get(data, keypath);
-      //   if(tools.isPlainObject(targetData)) {
-      //       targetData = JSON.stringify(targetData, null, 2);
-      //   }
-      console.log(targetData);
+    .name(packageJson.name)
+    .description("快速查看yaml文件字段内容的小工具");
+
+  program
+    .command("data [keyPath]")
+    .description("查看全部或部分数据")
+    .action(async (keyPath) => {
+      helper.log(await helper.getData(keyPath));
     });
 
   program
     .command("file")
     .description("显示yaml文件路径")
-    .action(() => {
-      console.log(conf.yaml);
+    .action(async () => {
+      let conf = await helper.getConf()
+      if(conf) {
+        console.log(conf.yaml);
+      }
     });
 
   program
     .command("keys")
     .description("显示所有最外层字段名")
-    .action(() => {
-      console.log(Object.keys(data));
+    .action(async () => {
+      let data = await helper.getData()
+      if(data) {
+        console.log(Object.keys(data));
+      }
     });
 
   program
-    .command("conf")
+    .command("config")
     .description("显示config.json的内容")
     .option("-c, --clear", "重置config.json")
-    .action((cmd) => {
-      let { clear } = cmd.opts();
-      if (clear) {
-        tools.writeConf({});
-      } else {
+    .option("-y, --yaml", "显示yaml文件路径")
+    .action(async (cmd) => {
+      if(cmd.clear) {
+        helper.saveConf({})
+        console.log('config.json已重置');
+        return
+      }
+
+      let conf = await helper.getConf()
+      if(conf) {
+        console.log(cmd.yaml ? conf.yaml : conf)
       }
     });
 
   program
-    .command("edit [what]")
-    .description(
-      "what is {yaml | js} 用vscode打开对应文件 example: showme edit yaml"
-    )
+    .command("edit <type>")
+    .description("编辑配置文件,yaml文件或应用脚本")
     .action((type) => {
-      type = type || "yaml";
-      if (!["yaml", "js"].includes(type)) {
-        console.error("参数有误: edit or  edit yaml or edit js");
-        return;
+      let types = ['config', 'data', 'code']
+      if(!types.includes(type)) {
+        console.warn(`<type>参数有误，只能为:${types.join('|')}`)
+        return
       }
 
-      tools.editFile(type === "yaml" ? conf.yaml : __filename);
+      helper.editFile(type);
+    });
+
+  program
+    .command("use", { isDefault: true })
+    .description("显示帮助信息")
+    .action(() => {
+      program.outputHelp();
     });
 
   program.on("--help", () => {
-    console.log("\n\n栗子:");
-    let examples = ['showme baidu.url', 'showme', 'showme conf', 'showme conf -c', 'showme edit']
-    console.log(examples.map(exam => '  ' + exam).join('\n'));
+    console.log("\n\n使用示例:");
+    let examples = [
+      "pkout help",
+      "pkout data",
+      "pkout data baidu.url",
+      "pkout data sites[0].url",
+      "pkout file",
+      "pkout keys",
+      "pkout config",
+      "pkout config -c",
+      "pkout config -y",
+      "pkout edit data",
+      "pkout edit code",
+      "pkout edit config",
+    ];
+    console.log(examples.map((exam) => "  " + exam).join("\n"));
   });
 
   program.parse(process.argv);
 }
+
+main();
