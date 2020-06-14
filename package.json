@@ -18,5 +18,8 @@
     "commander": "^5.1.0",
     "js-yaml": "^3.14.0",
     "prompt": "^1.0.0"
+  },
+  "devDependencies": {
+    "coffeescript": "^2.5.1"
   }
 }
