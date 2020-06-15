@@ -1,6 +1,6 @@
 {
   "name": "pkout",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "very simple tool, see your config data in easy way",
   "main": "index.js",
   "scripts": {
