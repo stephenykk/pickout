@@ -13,7 +13,6 @@ foo(90)
 name = 'alice'
 console.log "hello #{name}！"
 
-`
 async function hellofn() {
     console.log('good')
     return await new Promise(resolve => {
