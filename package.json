@@ -2,14 +2,15 @@
   "name": "pkout",
   "version": "2.0.1",
   "description": "very simple tool, see your config data in easy way",
-  "main": "index.js",
+  "main": "coffee/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "git add .  && git commit -m \"prepare for publish\"",
-    "prepublishOnly": "node index.js config -c  && npm run commit && npm version patch"
+    "prepublishOnly": "node index.js config -c  && npm run commit && npm version patch",
+    "publish-coffee": "coffee -cb coffee && npm publish"
   },
   "bin": {
-    "pkout": "./index.js"
+    "pkout": "./coffee/index.js"
   },
   "keywords": [],
   "author": "",
