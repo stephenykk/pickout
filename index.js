@@ -5,7 +5,7 @@ var program = require("commander");
 var helper = require("./helper");
 var packageJson = require("./package");
 
-function main(conf) {
+function main() {
   program
     .version(packageJson.version)
     .name(packageJson.name)

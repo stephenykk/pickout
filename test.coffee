@@ -13,6 +13,7 @@ foo(90)
 name = 'alice'
 console.log "hello #{name}！"
 
+`
 async function hellofn() {
     console.log('good')
     return await new Promise(resolve => {
@@ -47,6 +48,13 @@ test = (val) ->
     count = 10
     val = if count > 10 then 'yes' else 'no'
 
+    util.hello 'lily'
+        .say 'nice to meet you'
 test()
 
 
+type = 'string'
+val = 'hello'
+data = 
+    type: type
+    val: val
