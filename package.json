@@ -1,6 +1,6 @@
 {
   "name": "pkout",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "very simple tool, see your config data in easy way",
   "main": "coffee/index.js",
   "scripts": {
