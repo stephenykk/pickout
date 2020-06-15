@@ -2,7 +2,7 @@
   "name": "pkout",
   "version": "2.1.0",
   "description": "very simple tool, see your config data in easy way",
-  "main": "coffee/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "commit": "git add .  && git commit -m \"prepare for publish\"",
@@ -10,7 +10,7 @@
     "publish-coffee": "coffee -cb coffee && npm publish"
   },
   "bin": {
-    "pkout": "./coffee/index.js"
+    "pkout": "./index.js"
   },
   "keywords": [],
   "author": "",

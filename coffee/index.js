@@ -63,4 +63,5 @@ main = function() {
   return program.parse(process.argv);
 };
 
-main();
+// main()
+module.exports = main;

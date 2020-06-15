@@ -6,7 +6,7 @@ var fs = require("fs");
 var path = require("path");
 var util = require("util");
 
-var configFile = "./config.json";
+var configFile = "../config.json";
 
 function resolve(fpath) {
   return path.resolve(__dirname, fpath);
