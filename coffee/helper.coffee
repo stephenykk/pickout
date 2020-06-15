@@ -8,6 +8,8 @@ util = require 'util'
 
 configFile = './config.json'
 
+isPlainObject = (val) ->
+    return val and typeof val is 'Object' and Object.getPrototypeOf val is Object.prototype
 
 resolve = (fpath) ->
     path.resolve __dirname, fpath
@@ -31,31 +33,44 @@ getConf = ->
         yamlSchema =
             name: 'yaml'
             description: "请输入yaml文件路径('#{skip.key}'跳过)"
-            message: '文件不存在!'
             confirm: (val) ->
-                if skip.check val
-                    return true
+                return true if skip.check(val)
                 fpath = resolve val
-                return fs.existsSync fpath and (fs.statSync fpath).isFile()
+                return fs.existsSync fpath && fs.statSync(fpath).isFile()
         
         schema = [yamlSchema]
 
         prompt.start()
-        prompt.get(schema, (err, data) -> 
+        prompt.get schema, (err, data) ->
             if err
                 res false
                 console.error err
                 return
-
+            
             if skip.check data.yaml
-                console.warn "请指定yaml文件所在路径:D"
+                console.log "请指定yaml文件所在路径:D"
                 res false
                 return
-
+            
             saveConf data
-            res data       
-        )
+            res data
     )
 
 log = (data) ->
-    isPlainObject data or Array.isArray data
+    if isPlainObject data or Array.isArray data
+        console.log util.inspect data, {colors: true, depth: null}
+    else
+        console.log data
+
+getData = (keyPath) ->
+    conf = await getConf()
+    return if not conf
+
+    yamlFile = resolve conf.yaml
+
+    try
+        data = yaml.safeLoad fs.readFileSync yamlFile, 'utf8'
+        return get data, keyPath
+    catch err
+        console.error 'PARSE YAML ERR:', err
+    
