@@ -33,7 +33,16 @@ see()
 testAsync = ->
     await Promise.resolve('good-job')
 
-test = ->
+test = (val) ->
+    console.log util.inspect data, {colors: true, depth: null}
+    if not conf
+        return 'good'
+
+    if typeof val is 'string'
+        console.log 'fine'
+    
+    
+    return true if val > 10
     data = await testAsync()
     console.log data
     count = 10
