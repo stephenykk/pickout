@@ -20,6 +20,11 @@
     "js-yaml": "^3.14.0",
     "prompt": "^1.0.0"
   },
+  "homepage": "https://github.com/stephenykk/pickout#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenykk/pickout.git"
+  },
   "devDependencies": {
     "coffeescript": "^2.5.1"
   }
