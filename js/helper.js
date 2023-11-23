@@ -29,7 +29,7 @@ function getConf() {
     return config;
   }
 
-  return new Promise((res) => {
+  return new Promise((fullfill) => {
     var skip = {
       key: "q",
       check(val) {
@@ -39,7 +39,11 @@ function getConf() {
 
     var yamlSchema = {
       name: "yaml",
-      description: `请输入yaml文件路径("${skip.key}"跳过)`,
+      description: `
+      请输入yaml文件路径 ("${skip.key}"跳过) eg:
+        相对路径: mydir/account.yml 
+        绝对路径: d:\\user\\data\\account.yml
+      `,
       message: "文件不存在!",
       conform(val) {
         if (skip.check(val)) return true;
@@ -52,19 +56,19 @@ function getConf() {
     prompt.start();
     prompt.get(schema, (err, data) => {
       if (err) {
-        res(false);
+        fullfill(false);
         console.error(err);
         return;
       }
 
       if (skip.check(data.yaml)) {
         console.warn("请指定yaml文件所在路径:D");
-        res(false);
+        fullfill(false);
         return;
       }
 
       saveConf(data);
-      res(data);
+      fullfill(data);
     });
   });
 }
@@ -118,7 +122,7 @@ function get(data, keyPath = "", defval = undefined) {
 
 async function editFile(type) {
   let files = {
-    config: configFile,
+    config: resolve(configFile),
     code: resolve(__dirname, "index.js"),
     data: null,
   };
@@ -136,7 +140,9 @@ async function editFile(type) {
 
   child_process.exec(`code ${fpath}`, (err, stdout) => {
     if (err) {
-      console.error('\r\n看起来没有安装vscode,或忘记设置path环境变量了喔!  \r\n')
+      console.error(
+        "\r\n看起来没有安装vscode,或忘记设置path环境变量了喔!  \r\n"
+      );
       return console.error("OPEN FILE ERR:", err);
     }
 
@@ -153,3 +159,6 @@ module.exports = {
   editFile,
   log,
 };
+
+// getConf();
+// editFile("config");

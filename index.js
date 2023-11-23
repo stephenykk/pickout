@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// var main = require('./js/index')
-var main = require('./coffee/index')
+var main = require("./js/index");
+// var main = require('./coffee/index')
 
-main()
+main();

@@ -47,3 +47,33 @@ pkout config -c
 ---
 数据文件用yaml格式书写(*yaml用缩进表示数据结构，可读性很好*)
 
+
+```yml
+# yml 语法参考 (https://www.runoob.com/w3cnote/yaml-intro.html)
+npm: &acc
+  name: alice
+  pass: &pass alice123
+
+notebook:
+  <<: *acc
+
+email:
+  name: alice@123.com
+  pass: *pass
+
+user:
+    name: lufy
+    fav: 
+        - eating
+        - sleeping
+        - laughing
+
+    members:
+        -
+            name: nami
+        -
+            name: zoro
+    
+
+```
+

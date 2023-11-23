@@ -4,7 +4,7 @@
   "description": "very simple tool, see your config data in easy way",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "coffee test.coffee",
     "commit": "git add .  && git commit --allow-empty -m \"prepare for publish\"",
     "prepublishOnly": "node index.js config -c  && npm run commit && npm version minor",
     "publish-coffee": "coffee -cb coffee && npm publish"

@@ -22,8 +22,8 @@ function main() {
     .command("file")
     .description("显示yaml文件路径")
     .action(async () => {
-      let conf = await helper.getConf()
-      if(conf) {
+      let conf = await helper.getConf();
+      if (conf) {
         console.log(conf.yaml);
       }
     });
@@ -32,8 +32,8 @@ function main() {
     .command("keys")
     .description("显示所有最外层字段名")
     .action(async () => {
-      let data = await helper.getData()
-      if(data) {
+      let data = await helper.getData();
+      if (data) {
         console.log(Object.keys(data));
       }
     });
@@ -44,15 +44,15 @@ function main() {
     .option("-c, --clear", "重置config.json")
     .option("-y, --yaml", "显示yaml文件路径")
     .action(async (cmd) => {
-      if(cmd.clear) {
-        helper.saveConf({})
-        console.log('config.json已重置');
-        return
+      if (cmd.clear) {
+        helper.saveConf({});
+        console.log("config.json已重置");
+        return;
       }
 
-      let conf = await helper.getConf()
-      if(conf) {
-        console.log(cmd.yaml ? conf.yaml : conf)
+      let conf = await helper.getConf();
+      if (conf) {
+        console.log(cmd.yaml ? conf.yaml : conf);
       }
     });
 
@@ -60,10 +60,10 @@ function main() {
     .command("edit <type>")
     .description("编辑配置文件,yaml文件或应用脚本")
     .action((type) => {
-      let types = ['config', 'data', 'code']
-      if(!types.includes(type)) {
-        console.warn(`<type>参数有误，只能为:${types.join('|')}`)
-        return
+      let types = ["config", "data", "code"];
+      if (!types.includes(type)) {
+        console.warn(`<type>参数有误，只能为:${types.join("|")}`);
+        return;
       }
 
       helper.editFile(type);
@@ -99,4 +99,4 @@ function main() {
 }
 
 // main();
-module.exports = main
+module.exports = main;
