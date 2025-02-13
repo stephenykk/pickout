@@ -1,31 +1,43 @@
 {
-  "name": "pkout",
-  "version": "2.3.0",
-  "description": "very simple tool, see your config data in easy way",
-  "main": "index.js",
-  "scripts": {
-    "test": "coffee test.coffee",
-    "commit": "git add .  && git commit --allow-empty -m \"prepare for publish\"",
-    "prepublishOnly": "node index.js config -c  && npm run commit && npm version minor",
-    "publish-coffee": "coffee -cb coffee && npm publish"
-  },
-  "bin": {
-    "pkout": "./index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "commander": "^5.1.0",
-    "js-yaml": "^3.14.0",
-    "prompt": "^1.0.0"
-  },
-  "homepage": "https://github.com/stephenykk/pickout#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stephenykk/pickout.git"
-  },
-  "devDependencies": {
-    "coffeescript": "^2.5.1"
-  }
+    "name": "pkout",
+    "version": "2.3.0",
+    "description": "very simple tool, see your config data in easy way, account and password store and picker",
+    "main": "index.js",
+    "scripts": {
+        "test": "coffee test.coffee",
+        "commit": "git add .  && git commit --allow-empty -m \"prepare for publish\"",
+        "prepublishOnly": "node index.js config -c  && npm run commit && npm version minor",
+        "publish-coffee": "coffee -cb coffee && npm publish"
+    },
+    "bin": {
+        "pkout": "./index.js"
+    },
+    "keywords": [
+        "password",
+        "account",
+        "cli",
+        "command",
+        "pick",
+        "tool",
+        "helper",
+        "assistant",
+        "picker",
+        "simple",
+        "safe"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "commander": "^5.1.0",
+        "js-yaml": "^3.14.0",
+        "prompt": "^1.0.0"
+    },
+    "homepage": "https://github.com/stephenykk/pickout#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stephenykk/pickout.git"
+    },
+    "devDependencies": {
+        "coffeescript": "^2.5.1"
+    }
 }
