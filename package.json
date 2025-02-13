@@ -1,6 +1,6 @@
 {
     "name": "pkout",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "description": "very simple tool, see your config data in easy way, account and password store and picker",
     "main": "index.js",
     "scripts": {
